@@ -1,25 +1,23 @@
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
-    <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/ico">
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>{{env('APP_NAME')}}</title>
-</head>
-<body>
-    <nav class="navbar bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="{{asset('assets/img/logo-invoice.svg')}}" alt="" width="30" height="24" class="d-inline-block align-text-top">
-            Bootstrap
-          </a>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {{ __('You are logged in!') }}
+                </div>
+            </div>
         </div>
-      </nav>
-</body>
-</html>
+    </div>
+</div>
+@endsection

@@ -63,7 +63,7 @@
                                     } elseif (strtotime($event->start_date) == strtotime(date('Y-m-d')) && strtotime($event->end_date) <= strtotime(date('Y-m-d')) ) {
                                         $badge = 'badge-warning pulse';
                                         $message = 'A decorrer';
-                                    }elseif (strtotime($event->start_date) == strtotime(date('Y-m-d')) && strtotime($event->end_date) <= strtotime(date('Y-m-d')) ) {
+                                    }elseif (strtotime($event->start_date) == strtotime(date('Y-m-d')) && strtotime($event->end_date) > strtotime(date('Y-m-d')) ) {
                                         $badge = 'badge-warning pulse';
                                         $message = 'A decorrer';
                                     } else {

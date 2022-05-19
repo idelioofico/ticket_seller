@@ -10,7 +10,7 @@ use App\Models\EventType;
 use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Str;
 class EventController extends Controller
 {
     public function __construct()
@@ -31,8 +31,19 @@ class EventController extends Controller
 
         return view('event.index', $data);
     }
+    public function view(Event $event)
+    {
+        $data = array(
+            'event' => $event,
+            'provinces' => Province::orderBy('name', 'asc')->get(),
+            'event_types' => EventType::orderBy('name', 'asc')->get(),
+            'event_topics' => EventTopic::orderBy('name', 'asc')->get(),
 
-    public function guest($guest)
+        );
+        return view('event.view', $data);
+    }
+
+    public function guest()
     {
         $data = array(
             'events' => Event::orderBy('start_date', 'asc')->get()
@@ -77,6 +88,7 @@ class EventController extends Controller
         $upload = new FileUploadHelper();
 
         $data = array(
+            'slug'=>Str::slug($request->title),
             'title' => $request->title,
             'description' => $request->description,
             'image' => $upload->Upload($request->image, 'events'),

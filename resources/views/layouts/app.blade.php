@@ -1,98 +1,157 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title> @yield('title', 'Tikonta') </title>
 
-    <title>{{env('APP_NAME')}}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="icon" href="{{ asset('/book-solid.svg') }}" type="image/svg">
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/ico">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Montserat:200,600" rel="stylesheet"> --}}
+
+
+    <link href="{{ asset('/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    {{-- <script src="{{ asset('css/select2.min.css') }}"></script> --}}
+    {{-- <script src="{{ asset('css/select2-bootstrap4.min.css') }}"></script> --}}
+    <link href="{{ asset('/css/loader.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/css/pulse.css') }}">
+
+
+
+
+
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('css')
+
 </head>
-<body>
-    <div id="app">
+
+<body id="page-top">
+    <div class="preloader"></div>
+    @include('layouts.header')
 
 
-        <nav class="navbar bg-light">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">
-                <img src="{{asset('assets/img/logo-invoice.svg')}}" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                Bootstrap
-              </a>
-            </div>
-          </nav>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                      <img src="{{asset('assets/img/logo-invoice.svg')}}" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                      Bootstrap
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white fixed-top topbar mb-4 static-top shadow">
+                <div class="dropdown d-none d-sm-none d-md-block">
+                    <a href="#"
+                        class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none ">
+                        <img width="40" src="{{ asset('assets/brand/bootstrap-logo.svg') }}" alt="">
                     </a>
-                  </div>
-                {{-- <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                </div>
+                <!-- Topbar Search -->
+                <form class=" d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 w-100 me-3 navbar-search">
+                    <div class="input-group">
+                        <input type="search" class="form-control bg-light border-0 small"
+                            placeholder="Pesquisar por shows, festivais..." aria-label="Search"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+            </nav>
+            <!-- End of Topbar -->
 
-                    </ul>
+            <div class="container-fluid">
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
-                        @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                @include('notification.alert')
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+                @yield('content')
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                        @endguest
-                    </ul>
-                </div> --}}
             </div>
-        </nav>
 
-    </div>
-    
-    <main class="py-4">
-        @yield('content')
-    </main>
+
+            @include('sweetalert::alert')
+
+            <script src="{{ asset('js/jquery.js') }}"></script>
+            <script src="{{ asset('js/template.js') }}"></script>
+            {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+            {{-- <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script> --}}
+            {{-- <script src="{{ asset('js/select2.min.js') }}"></script> --}}
+            <script src="{{ asset('/js/dataTables.min.js') }}"></script>
+            <script src="{{ asset('/js/jquery.dataTables.js') }}"></script>
+            <script src="{{ asset('/js/dataTables.bootstrap4.min.js') }}"></script>
+            <script src="{{ asset('/js/geral.js') }}"></script>
+            {{-- <script src="{{ asset('/js/dropzone.js') }}"></script> --}}
+            <script src="https://js.upload.io/upload-js/v1"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
+
+            @yield('scripts')
+
+
+            <script>
+                $(document).ready(function() {
+
+                    $('.preloader').fadeOut('hide');
+                    $('.data-table').dataTable({
+                        language: {
+                            "lengthMenu": "Mostrar _MENU_ registos",
+                            "zeroRecords": "Nenhum resultado encontrado!",
+                            "info": "Mostrando registos de _START_ a _END_ de um total de _TOTAL_ registos",
+                            "infoEmpty": "Mostrando registos de 0 a 0 de um total de 0 registos",
+                            "infoFiltered": "(filtrado de um total de _MAX_ registos)",
+                            "sSearch": "Pesquisar:",
+                            "oPaginate": {
+                                "sFirst": "Primeiro",
+                                "sLast": "último",
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior"
+                            },
+                            "sProcessing": "Processando...",
+                        },
+                        buttons: [
+                            'copy', 'excel', 'pdf'
+                        ]
+                    });
+                    // $('.select2').select2();
+                    EditorJS({
+                        /**
+                         * Id of Element that should contain Editor instance
+                         */
+                        holder: 'description'
+                    });
+                });
+
+                // $(function() {
+                //     // $('.select2').each(function() {
+                //     //     $(this).select2({
+                //     //         theme: 'bootstrap4'
+                //     //         , width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style'
+                //     //         , placeholder: $(this).data('placeholder')
+                //     //         , allowClear: Boolean($(this).data('allow-clear'))
+                //     //     , });
+                //     // });
+                // });
+
+                $(document).load(function() {
+                    $('.preloader').fadeOut('slow');
+                });
+            </script>
+
+
 </body>
+
 </html>

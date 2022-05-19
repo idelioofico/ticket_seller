@@ -14,11 +14,11 @@
     <form action="{{ route('events.store') }}" method="POST" id="event-form" enctype="multipart/form-data">
         @csrf
         @include('event.form')
+        
         <button type="submit" class="btn btn-primary float-right ">
             Registar
         </button>
-        
-
+    
     </form>
 
     {{-- </div> --}}
