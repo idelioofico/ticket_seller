@@ -15,15 +15,18 @@ class CompanyController extends Controller
 
     public function index()
     {
+        // dd("hello");
         $companies = Company::all();
         return view("company.table", compact('companies'));
     }
+
 
     public function create()
     {
         $company = new Company();
         return view("company.create", compact('company'));
     }
+
 
     public function store(CompanyRequest $request)
     {
@@ -33,6 +36,7 @@ class CompanyController extends Controller
             return redirect()->back()->with("error", "Ocorreu um erro ao tentar registar Company!");
         }
     }
+
 
     public function show(Company $company)
     {
@@ -48,4 +52,5 @@ class CompanyController extends Controller
             return redirect()->back()->with('success', "Ocorreu um erro ao tentar actualizar os dados.");
         }
     }
+
 }

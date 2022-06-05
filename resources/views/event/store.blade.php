@@ -38,9 +38,9 @@
                             <p>
                                 <small class="card-text">
                                     @if (strlen($item->description) < 200)
-                                        {{ $item->description }}
+                                        {{ htmlspecialchars($item->description) }}
                                     @else
-                                        {{ substr_replace($item->description, '...', 120) }}
+                                        {{ substr_replace(htmlspecialchars($item->description), '...', 120) }}
                                     @endif
                                 </small>
                             </p>

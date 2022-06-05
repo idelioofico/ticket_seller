@@ -1,19 +1,26 @@
-@extends('app')
+@extends('layouts.app_event')
 @section('css')
     <link rel="stylesheet" href="{{ asset('/css/dropzone.css') }}">
 @endsection
-@section('title', env('APP_NAME') . ' | Registar-Evento')
+@section('title', env('APP_NAME') . ' | Editar-Ticket')
+
 @section('content')
-    <h1 class="h3 text-gray-800 ml-1 mb-3 ">Meu evento</h1>
+    <h1 class="h3 text-gray-800 ml-1 mb-3 ">Editar Ticket</h1>
+    {{-- <div class="card my-5"> --}}
+    {{-- <div class="card"> --}}
+    <!-- Nested Row within Card Body -->
+    {{-- <div class="row align-self-center"> --}}
+    {{-- <div class="col-lg-12"> --}}
+    {{-- /  <div class="p-5"> --}}
+    <form action="{{ route('events.tickets.update',$ticket->id) }}" method="POST" id="event-form" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
+        @include('ticket.form')
+        
+        <button type="submit" class="btn btn-primary float-right ">
+            Actualizar
+        </button>
     
-    <form action="{{ route('events.update',$event->id) }}" method="POST" id="event-form" enctype="multipart/form-data">
-      @method('PATCH')
-      @include('event.form')
-      
-      <button type="submit" class="btn btn-primary float-right mb-5">
-        Actualizar
-      </button>
-      @csrf
     </form>
 
     {{-- </div> --}}

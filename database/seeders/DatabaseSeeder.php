@@ -139,6 +139,7 @@ class DatabaseSeeder extends Seeder
       $perfilSuper->permission()->attach($permissao);
     }
 
+
     $tikonta = User::create(
       [
         'name' => 'Tikonta',
@@ -154,8 +155,9 @@ class DatabaseSeeder extends Seeder
       'name' => 'MoreEvents',
       'contact' => '8412345678'
     ]);
-    $idelio = User::create(
 
+
+    $idelio = User::create(
       [
         'name' => 'Idelio Ofiço',
         //   'utilizador' => 'iofico',
@@ -165,5 +167,6 @@ class DatabaseSeeder extends Seeder
         'company_id'=>$company->id
       ]
     );
+    
   }
 }

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app_event')
 
 @section('title', env('APP_NAME') . ' | Produtos-Lista')
 @section('css')
@@ -7,14 +7,14 @@
 @section('content')
 
 
-    <h1 class="ml-2 mr-0 mb-0 mu-0 font-weight-bold text-primary ">Meus eventos</h1>
+    <h1 class="ml-2 mr-0 mb-0 mu-0 font-weight-bold text-primary ">Meus tickets</h1>
 
     <div class="row mb-4">
         <div class="col d-flex flex-row-reverse bd-highlight">
             @can('registar-evento')
-                <a class="btn btn-primary btn-user text-white" href="{{ route('events.create') }}">
+                <a class="btn btn-primary btn-user text-white" href="{{ route('events.tickets.create',$event->id) }}">
                     <i class="fas fa-plus"></i>
-                    Novo Evento
+                    Novo Ticket
                 </a>
             @endcan
         </div>
@@ -36,55 +36,59 @@
             </div>
         </div>
         <div class="card-body">
-            @if (count($events) > 0)
+            @if (count($tickets) > 0)
                 <div class="table-responsive">
                     <table class="table table-borderdless data-table table-hover table-striped" width="100%"
                         cellspacing="0">
                         <thead>
                             <tr>
-                                <th style="text-align: center;">#</th>
-                                <th style="text-align: center;">Estado</th>
-                                <th style="text-align: center;"> Evento</th>
-                                <th style="text-align: center;">Data</th>
-                                <th style="text-align: center;">Local</th>
-                                <th style="text-align: center;">Bilhetes</th>
-                                <th style="text-align: center;"></th>
+                                <th  style="text-align: center;">#</th>
+                                <th style="text-align: center;">Título</th>
+                                <th  style="text-align: center;">Estado</th>
+                                <th style="text-align: center;">Preço</th>
+                                {{-- <th style="text-align: center;">Data</th> --}}
+                                {{-- <th style="text-align: center;">Local</th> --}}
+                                <th style="text-align: center;">Vendas</th>
+                                {{-- <th style="text-align: center;"></th> --}}
+                                {{-- <th style="text-align: center;">Vendas</th> --}}
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($events as $key => $event)
+                            @foreach ($tickets as $key => $item)
                                 @php
                                     $badge = 'badge-primary';
                                     $status = '';
-                                    
-                                    if (strtotime($event->start_date) > strtotime(date('Y-m-d')) &&  strtotime($event->end_date) > strtotime(date('Y-m-d'))) {
+                                    $percentage=0;
+                                    $sold_tickets=$item->orders()->count();
+                                    if (strtotime($item->start_date) > strtotime(date('Y-m-d')) &&  strtotime($item->end_date) > strtotime(date('Y-m-d'))) {
                                         $badge = 'badge-success';
                                         $message = 'Aberto';
-                                    } elseif (strtotime($event->start_date) <= strtotime(date('Y-m-d')) && strtotime($event->end_date) >= strtotime(date('Y-m-d')) ) {
+                                    } elseif (strtotime($item->start_date) <= strtotime(date('Y-m-d')) && strtotime($item->end_date) >= strtotime(date('Y-m-d')) ) {
                                         $badge = 'badge-warning pulse';
                                         $message = 'A decorrer';
                                     } else {
                                         $badge = 'badge-danger';
                                         $message = 'Terminou';
                                     }
-                                    
+                                    $percentage=($sold_tickets*100)/($item->qnt);
                                 @endphp
                                 <tr>
                                     <td>{{ ++$key }}</td>
+                                    <td style="text-align: center;">{{ $item->title }}</td>
                                     <td class="text-center"><span
                                             class="badge badge-pill {{ $badge }}">{{ $message ?? '----------' }}</span>
-                                    </td style="text-align: center;">
-                                    <td style="text-align: center;">{{ $event->title }}</td>
-                                    <td style="text-align: center;">{{ date('d-m-Y', strtotime($event->start_date)) }}
-                                    </td>
-                                    <td style="text-align: center;">{{ $event->address }}</td>
-                                    <td class="text-right">{{ 0 }}</td>
+                                   {{date('D, d/m/y',strtotime($item->start_date))}} - {{date('D, d/m/y',strtotime($item->end_date))}}</td>
+                                    <td style="text-align: center;">{{ number_format($item->price,'2','.',',') }}</td>
+                                    <td style="text-align: center;">{{$sold_tickets}}/{{$item->qnt}} | P: {{$percentage}}%</td>
+                                    <td style="text-align: center;">{{ $item->address }}</td>
+                                    {{-- <td class="text-right">{{ 0 }}</td> --}}
 
-                                    {{-- @if (!Gate::denies('editar-evento') || !Gate::denies('apagar-evento')) --}}
+                                    {{-- @if (!Gate::denies('editar-itemo') || !Gate::denies('apagar-itemo')) --}}
                                     <td class="text-center accao">
                                         <div class="btn-group">
-                                            {{-- @can('editar-event') --}}
-                                            <a href="{{ route('events.show', $event->id) }}"
+                                            {{-- @can('editar-item') --}}
+                                            <a href="{{ route('events.tickets.edit',[$event->id,$item->id]) }}"
                                                 class="btn btn-primary btn-sm " title="Ver detalhes">
                                                 <i class="fas fa-eye"></i>
                                             </a>

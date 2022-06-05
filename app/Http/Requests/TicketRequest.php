@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EventRequest extends FormRequest
+class TicketRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,21 +24,13 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'description' => 'required',
-            'image'=>'required|file',
-            'event_type_id'=>'required',
-            'topic_id'=>'required',
-
+            'title'=>'required',
+            'description'=>'nullable',
+            'price'=>'required|numeric',
+            'qnt_by_person'=>'required|numeric',
+            'qnt'=>'required|numeric',
             'start_date'=>'required|date',
-            'end_date'=>'required|date|after_or_equal:start_date',
-
-            'province_id'=>'required',
-            'city'=>'required',
-            'address'=>'required',
-
-            'producer'=>'nullable',
-
+            'end_date'=>'required|date',
         ];
     }
 }

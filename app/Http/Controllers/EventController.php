@@ -11,6 +11,7 @@ use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+
 class EventController extends Controller
 {
     public function __construct()
@@ -60,8 +61,6 @@ class EventController extends Controller
     public function create()
     {
 
-
-
         $data = array(
             'event' => new Event(),
             'provinces' => Province::orderBy('name', 'asc')->get(),
@@ -69,8 +68,6 @@ class EventController extends Controller
             'event_topics' => EventTopic::orderBy('name', 'asc')->get(),
 
         );
-
-
 
         return view('event.create', $data);
     }
@@ -88,7 +85,7 @@ class EventController extends Controller
         $upload = new FileUploadHelper();
 
         $data = array(
-            'slug'=>Str::slug($request->title),
+            'slug' => Str::slug($request->title),
             'title' => $request->title,
             'description' => $request->description,
             'image' => $upload->Upload($request->image, 'events'),
@@ -125,8 +122,10 @@ class EventController extends Controller
             'provinces' => Province::orderBy('name', 'asc')->get(),
             'event_types' => EventType::orderBy('name', 'asc')->get(),
             'event_topics' => EventTopic::orderBy('name', 'asc')->get(),
-
+            'tickets'=>$event->tickets()->with('orders')->get(),
         );
+
+        // dd($data);
         return view('event.show', $data);
     }
 
@@ -138,7 +137,14 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return view('event.edit', compact('event'));
+        $data = array(
+            'event' => $event,
+            'provinces' => Province::orderBy('name', 'asc')->get(),
+            'event_types' => EventType::orderBy('name', 'asc')->get(),
+            'event_topics' => EventTopic::orderBy('name', 'asc')->get(),
+        );
+
+        return view('event.edit', $data);
     }
 
     /**
@@ -150,8 +156,24 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
+        // dd($event);
+        $upload = new FileUploadHelper();
+
+        $data = array(
+            'slug' => Str::slug($request->title),
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' =>$request->hasFile('image')?$upload->Upload($request->image, 'events'):$event->image,
+            'event_type_id' => $request->event_type_id,
+            'topic_id' => $request->topic_id,
+            'start_date' => date('Y-m-d', strtotime($request->start_date)),
+            'end_date' => date('Y-m-d', strtotime($request->end_date)),
+            'province_id' => $request->province_id,
+            'city' => $request->city,
+            'address' => $request->address,
+            'producer' => $request->producer ?: null,
+            'company_id' => auth()->user()->company_id,
+        );
 
         if ($event->update($data)) {
             return redirect(route('events.show', $event->id))->with('success', "Dados actualizados com sucesso.");

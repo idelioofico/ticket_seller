@@ -9,7 +9,7 @@
             <div class="col-sm-12 mb-12 mb-sm-0">
                 <label for="name">Título</label>
                 <input type="text" class="form-control  @error('title') is-invalid @enderror " id="title" name="title"
-                    value="{{ old('title') ?? $event->title }}" >
+                    value="{{ old('title') ?? $event->title }}">
                 @error('title')
                     <div class="" role="alert">
                         <span class="text-danger ">{{ $message }}</span>
@@ -84,19 +84,30 @@
 <div class="card mb-4">
     <div class="card-header">Carregar imagem</div>
     <div class="card-body">
-        <div class="form-group row">
-            <div class="col-sm-12 mb-12 mb-sm-0">
-                {{-- <label for="image">Carregar imagem do evento</label> --}}
-                <input type="file" class="form-control  @error('image') is-invalid @enderror event-fields"
-                    id="image" name="image" value="{{ old('image') ?? $event->image }}">
-                @error('image')
-                    <div class="" role="alert">
-                        <span class="text-danger ">{{ $message }}</span>
+        <div class="col col-6">
+            @if (!empty($event->image))
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-6 mb-sm-0">
+                        <img src="{{ asset($event->image) }}" alt="" width="200" height="100">
                     </div>
-                @enderror
+                    <div class="col-sm-6 mb-6 mb-sm-0 text-left">
+                        <p class="text-warning">Carregue uma nova imagem para actualizar!</p>
+                    </div>
+                </div>
+            @endif
+            <div class="form-group row">
+                <div class="col-sm-12 mb-12 mb-sm-0">
+                    {{-- <label for="image">Carregar imagem do evento</label> --}}
+                    <input type="file" class="form-control  @error('image') is-invalid @enderror event-fields"
+                        id="image" name="image" value="{{ old('image') ?? $event->image }}">
+                    @error('image')
+                        <div class="" role="alert">
+                            <span class="text-danger ">{{ $message }}</span>
+                        </div>
+                    @enderror
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -111,7 +122,7 @@
             <div class="col-sm-12 col-mb-6">
                 <label for="start_date">Data de Início</label>
                 <input type="date" class="form-control @error('start_date') is-invalid @enderror event-fields" rows="5"
-                name="start_date" id="start_date" value="{{ old('start_date') ?? $event->start_date }}">
+                    name="start_date" id="start_date" value="{{ old('start_date') ?? $event->start_date }}">
                 @error('start_date')
                     <div role="alert">
                         <span class="text-danger ">{{ $message }}</span>
@@ -122,7 +133,8 @@
             <div class="col-sm-12 col-mb-6">
                 <label for="end_date">Data de Termino</label>
                 <input type="end_date" class="form-control @error('end_date') is-invalid @enderror event-fields"
-                    rows="5" cols="1" name="end_date" id="end_date" value="{{ old('end_date') ?? $event->end_date }}">
+                    rows="5" cols="1" name="end_date" id="end_date"
+                    value="{{ old('end_date') ?? $event->end_date }}">
                 @error('end_date')
                     <div role="alert">
                         <span class="text-danger ">{{ $message }}</span>
@@ -132,7 +144,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="card mb-4">
     <div class="card-header">
@@ -187,7 +198,3 @@
     </div>
 
 </div>
-
-
-
-
