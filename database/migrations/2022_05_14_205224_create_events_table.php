@@ -30,7 +30,10 @@ class CreateEventsTable extends Migration
             $table->string('address')->nullable();
 
             $table->date('start_date')->nullable();
+            $table->time('start_time')->nullable();
+
             $table->date('end_date')->nullable();
+            $table->time('end_time')->nullable();
 
 
             $table->string('producer')->nullable();

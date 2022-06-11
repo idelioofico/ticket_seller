@@ -57,6 +57,8 @@ class TicketController extends Controller
             'qnt' => $request->qnt,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
+            'start_time' => date('H:i', strtotime($request->start_time)),
+            'end_time' => date('H:i', strtotime($request->end_time)),
             'company_id'=>auth()->user()->company_id
 
         );
@@ -116,6 +118,8 @@ class TicketController extends Controller
             'qnt' => $request->qnt,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
+            'start_time' => date('H:i', strtotime($request->start_time)),
+            'end_time' => date('H:i', strtotime($request->end_time)),
             'company_id'=>auth()->user()->company_id
         );
         // dd($data);

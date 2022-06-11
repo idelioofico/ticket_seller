@@ -32,6 +32,11 @@
 
 @endsection
 @section('scripts')
+<script>
+     $(function () {
+          $('.datetimepicker12').datetimepicker();
+      });
+</script>
     <script>
         $(document).ready(function() {
 

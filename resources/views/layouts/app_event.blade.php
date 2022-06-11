@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +18,12 @@
     <link href="{{ asset('/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     {{-- <script src="{{ asset('css/select2.min.css') }}"></script> --}}
     {{-- <script src="{{ asset('css/select2-bootstrap4.min.css') }}"></script> --}}
+
+    <link rel=”stylesheet” href=”//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css”>
+    <link
+        href=”//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css”
+        rel=”stylesheet”>
+
     <link href="{{ asset('/css/loader.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/pulse.css') }}">
     <!-- Styles -->
@@ -36,7 +43,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <h3 >{{ $event->title }}</h3>
+                    <h3>{{ $event->title }}</h3>
                     {{-- <p class="card-text mb-1 ml-2">
                         <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -58,20 +65,20 @@
                     </p> --}}
                 </div>
                 {{-- <div class="row"> --}}
-                    <div class="col d-flex flex-row-reverse bd-highlight">
+                <div class="col d-flex flex-row-reverse bd-highlight">
 
-                        <a class="btn btn-warning btn-user text-white" style="margin-left:4px"
-                            href="{{ route('events.edit', $event->id) }}">
-                            <i class="fas fa-edit"></i>
-                            Editar Evento
-                        </a>
+                    <a class="btn btn-warning btn-user text-white" style="margin-left:4px"
+                        href="{{ route('events.edit', $event->id) }}">
+                        <i class="fas fa-edit"></i>
+                        Editar Evento
+                    </a>
 
-                        {{-- <a class="btn btn-warning btn-user text-white" href="{{ route('events.edit', $event->id) }}">
+                    {{-- <a class="btn btn-warning btn-user text-white" href="{{ route('events.edit', $event->id) }}">
                             <i class="fas fa-edit"></i>
                             Criar bilhete
                         </a> --}}
-                        
-                    </div>
+
+                </div>
                 {{-- </div> --}}
             </div>
             <div class="row">
@@ -100,8 +107,8 @@
     </div>
 
 
-<hr>
-{{-- @endsection --}}
+    <hr>
+    {{-- @endsection --}}
 
     <div class="container-fluid">
 
@@ -124,7 +131,7 @@
 
     <script src="{{ asset('js/app.js') }}"></script>
     {{-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
- 
+
 
     {{-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
     {{-- <script src="{{ asset('js/select2.min.js') }}"></script> --}}
@@ -139,8 +146,22 @@
 
     <script src="https://cdn.tiny.cloud/1/u13jtypi4f0n6tliml7h8m2n0iuoyv3ke3u9db6t98a4uypj/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
+
+
+    <!-- ... -->
+    <script type=”text/javascript” src=”//code.jquery.com/jquery-2.1.1.min.js”></script>
+
+    <script type=”text/javascript” src=”//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js”></script>
+
+    <script src=”//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js”></script>
+
+    <script
+        src=”//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js”>
+    </script>
+
     @yield('scripts')
 
+  
 
     <script>
         $(document).ready(function() {
@@ -193,7 +214,7 @@
 
     <script>
         tinymce.init({
-            selector: 'textarea',
+            selector: '.richtext',
             plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
             toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
             toolbar_mode: 'floating',

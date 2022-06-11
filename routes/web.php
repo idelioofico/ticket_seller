@@ -28,6 +28,7 @@ Route::get('/', function () {
 
 
 Auth::routes();
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
 Route::get('/manual', [ManualController::class, 'index'])->name('manual');
@@ -78,7 +79,6 @@ Route::prefix('eventos')->name('events.')->group(function () {
 });
 
 
-
 Route::prefix('users')->name('users.')->middleware("can:gerir-utilizador")->group(function () {
 
     Route::get('/', [UserController::class, 'index'])->name('index');
@@ -97,4 +97,5 @@ Route::prefix('users')->name('users.')->middleware("can:gerir-utilizador")->grou
         Route::post('/{role}/edit', [RoleController::class, 'update'])->name('update');
         Route::post('/delete', [RoleController::class, 'create'])->name('delete');
     });
+
 });

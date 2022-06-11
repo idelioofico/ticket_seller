@@ -32,7 +32,8 @@ class EventRequest extends FormRequest
 
             'start_date'=>'required|date',
             'end_date'=>'required|date|after_or_equal:start_date',
-
+            'start_time'=>'required',
+            'end_time'=>'required',
             'province_id'=>'required',
             'city'=>'required',
             'address'=>'required',

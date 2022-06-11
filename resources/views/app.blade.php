@@ -10,22 +10,25 @@
     <link rel="icon" href="{{ asset('/book-solid.svg') }}" type="image/svg">
     <!-- Fonts -->
     {{-- <link href="https://fonts.googleapis.com/css?family=Montserat:200,600" rel="stylesheet"> --}}
-    <link href="{{ asset('/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous"> --}}
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
-    {{-- <script src="{{ asset('css/select2.min.css') }}"></script> --}}
-    {{-- <script src="{{ asset('css/select2-bootstrap4.min.css') }}"></script> --}}
+    <script src="{{ asset('css/select2.min.css') }}"></script> 
+     <script src="{{ asset('css/select2-bootstrap4.min.css') }}"></script>
     <link href="{{ asset('/css/loader.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/pulse.css') }}">
+
+
     <!-- Styles -->
     @yield('css')
 
 </head>
 
 <body id="page-top">
+
     {{-- <div class="preloader"></div> --}}
     @include('layouts.partials.header')
 
@@ -41,19 +44,20 @@
 
     @include('sweetalert::alert')
 
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    {{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
-    </script> --}}
-    <script src="{{ asset('js/template.js') }}"></script>
-
-    <script src="{{ asset('js/app.js') }}"></script>
+    </script>
     {{-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
 
- 
+    <script src="{{ asset('js/template.js') }}"></script>
+
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+
+
 
     {{-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
     {{-- <script src="{{ asset('js/select2.min.js') }}"></script> --}}
@@ -123,11 +127,27 @@
     <script>
         tinymce.init({
             selector: 'textarea',
-            plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+            // plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
             toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',
+        });
+    </script>
+    <script>
+        mobiscroll.setOptions({
+            theme: 'ios',
+            themeVariant: 'light'
+        });
+
+        $(function() {
+            $('#datetime').mobiscroll().datepicker({
+                controls: ['calendar'],
+                select: 'preset-range',
+                display: 'inline',
+                firstSelectDay: 1,
+                selectSize: 14
+            });
         });
     </script>
 </body>

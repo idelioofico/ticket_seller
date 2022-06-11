@@ -24,9 +24,7 @@
     <link href="{{ asset('/css/loader.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/pulse.css') }}">
 
-
-
-
+    
 
     <!-- Styles -->
     @yield('css')
@@ -35,7 +33,7 @@
 
 <body id="page-top">
     <div class="preloader"></div>
-    @include('layouts.header')
+    @include('layouts.partials.header')
 
 
     <!-- Content Wrapper -->

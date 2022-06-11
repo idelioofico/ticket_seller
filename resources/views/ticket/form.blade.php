@@ -69,7 +69,7 @@
 
             <div class="col-sm-12 col-md-6 mb-3 mb-sm-0">
                 <label for="start_date">Data de Início</label>
-                <input type="date" class="form-control @error('start_date') is-invalid @enderror event-fields" rows="5"
+                <input type="date" class="form-control datetimepicker12 @error('start_date') is-invalid @enderror event-fields" rows="5"
                     name="start_date" id="start_date" value="{{ old('start_date') ?? $ticket->start_date }}">
                 @error('start_date')
                     <div role="alert">
@@ -78,11 +78,33 @@
                 @enderror
             </div>
             <div class="col-sm-12 col-md-6 mb-3 mb-sm-0">
+                <label for="start_time">Hora de Início</label>
+                <input type="time" class="form-control datetimepicker12 @error('start_time') is-invalid @enderror event-fields" rows="5"
+                    name="start_time" id="start_time" value="{{ old('start_time') ?? $ticket->start_time }}">
+                @error('start_time')
+                    <div role="alert">
+                        <span class="text-danger ">{{ $message }}</span>
+                    </div>
+                @enderror
+            </div>
+            <div class="col-sm-12 col-md-6 mb-3 mb-sm-0">
                 <label for="end_date">Data de Termino</label>
-                <input type="date" class="form-control @error('end_date') is-invalid @enderror event-fields"
+                <input type="date" class="form-control datetimepicker12 @error('end_date') is-invalid @enderror event-fields"
                     rows="5" cols="1" name="end_date" id="end_date"
                     value="{{ old('end_date') ?? $ticket->end_date }}">
                 @error('end_date')
+                    <div role="alert">
+                        <span class="text-danger ">{{ $message }}</span>
+                    </div>
+                @enderror
+            </div>
+
+            <div class="col-sm-12 col-md-6 mb-3 mb-sm-0">
+                <label for="end_time">Hora de Termino</label>
+                <input type="time" class="form-control datetimepicker12 @error('end_time') is-invalid @enderror event-fields"
+                    rows="5" cols="1" name="end_time" id="end_time"
+                    value="{{ old('end_time') ?? $ticket->end_time }}">
+                @error('end_time')
                     <div role="alert">
                         <span class="text-danger ">{{ $message }}</span>
                     </div>

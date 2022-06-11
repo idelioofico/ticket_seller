@@ -9,7 +9,7 @@
 
     <div class="px-4 pt-5 my-5 text-center border-bottom">
 
-        <main style="padding-top: 20px">
+        <main style="padding-top: 20px;verical-alignment:center;">
             <div class="marketing">
                 <div class="row featurette mb-5 center">
                     <div class="col-md-5">
@@ -40,10 +40,10 @@
                     </div>
                 </div>
 
-                <div class="row featurette">
+                <div class="row featurette" align="center">
                     <div class="col-md-7">
-                        <h2 class="featurette-heading">Descrição </h2>
-                        <p class="lead">{{ htmlspecialchars($event->description) }}</p>
+                        {{-- <h2 class="featurette-heading">Descrição </h2> --}}
+                        <div class="lead">{!!$event->description !!}</div>
                         <p class="card-text mb-2 ml-2">
                             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"

@@ -78,7 +78,7 @@
                                     <td style="text-align: center;">{{ date('d-m-Y', strtotime($event->start_date)) }}
                                     </td>
                                     <td style="text-align: center;">{{ $event->address }}</td>
-                                    <td class="text-right">{{ 0 }}</td>
+                                    <td class="text-center">{{ $event->tickets()->sum('qnt') }}</td>
 
                                     {{-- @if (!Gate::denies('editar-evento') || !Gate::denies('apagar-evento')) --}}
                                     <td class="text-center accao">

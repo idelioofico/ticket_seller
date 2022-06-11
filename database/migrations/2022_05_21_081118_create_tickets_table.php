@@ -17,10 +17,14 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('title');
             $table->integer('qnt');
-            $table->float('price', 5, 2);
+            $table->double('price');
             $table->integer('qnt_by_person');
-            $table->datetime('start_date');
+            $table->date('start_date');
+            $table->time('start_time');
+
             $table->datetime('end_date');
+            $table->time('end_time')->nullable();
+
             $table->text('description')->nullable();
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events');

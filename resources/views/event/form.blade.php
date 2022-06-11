@@ -21,7 +21,7 @@
         <div class="form-group row">
             <div class="col-sm-12 mb-3 mb-sm-0">
                 <label for="event_type_id">Tipo de evento</label>
-                <select name="event_type_id" id="event_type_id" class="form-control custom-select event-fields">
+                <select name="event_type_id" id="event_type_id" class="form-control custom-select event-fields select2">
                     <option value="">Selecione...</option>
                     @foreach ($event_types as $item)
                         <option @if ($item->id == old('event_type_id') || $item->id == $event->event_type_id) {{ 'selected' }} @endif
@@ -40,7 +40,7 @@
         <div class="form-group row">
             <div class="col-sm-12 mb-3 mb-sm-0">
                 <label for="topic_id">Assunto</label>
-                <select name="topic_id" id="topic_id" class="form-control custom-select event-fields">
+                <select name="topic_id" id="topic_id" class="form-control custom-select event-fields select2">
                     <option value="">Selecione...</option>
                     @foreach ($event_topics as $item)
                         <option @if ($item->id == old('topic_id') || $item->id == $event->topic_id) {{ 'selected' }} @endif
@@ -69,7 +69,7 @@
         <div class=" row">
             <div class="col-sm-12 mb-12 mb-sm-0">
                 {{-- <label for="description">Descrição</label> --}}
-                <textarea class="form-control @error('description') is-invalid @enderror event-fields" id="description" rows="4"
+                <textarea class="form-control @error('description') is-invalid @enderror event-fields richtext" id="description" rows="4"
                     name="description">{{ old('description') ?? $event->description }}</textarea>
                 @error('description')
                     <div class="" role="alert">
@@ -117,9 +117,10 @@
         Duração do evento
     </div>
     <div class="card-body">
-        <div class="form-group row">
 
-            <div class="col-sm-12 col-mb-6">
+        <div class="form-group row">
+        
+            <div class="col col-sm-12 col-md-6">
                 <label for="start_date">Data de Início</label>
                 <input type="date" class="form-control @error('start_date') is-invalid @enderror event-fields" rows="5"
                     name="start_date" id="start_date" value="{{ old('start_date') ?? $event->start_date }}">
@@ -129,10 +130,21 @@
                     </div>
                 @enderror
             </div>
+            
+            <div class="col col-sm-12 col-md-6">
+                <label for="start_time">Hora de Início</label>
+                <input type="time" class="form-control @error('start_time') is-invalid @enderror event-fields" rows="5"
+                    name="start_time" id="start_time" value="{{ old('start_time') ?? $event->start_time }}">
+                @error('start_date')
+                    <div role="alert">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
+            </div>
 
-            <div class="col-sm-12 col-mb-6">
+            <div class="col col-sm-12 col-md-6">
                 <label for="end_date">Data de Termino</label>
-                <input type="end_date" class="form-control @error('end_date') is-invalid @enderror event-fields"
+                <input type="date" class="form-control @error('end_date') is-invalid @enderror event-fields"
                     rows="5" cols="1" name="end_date" id="end_date"
                     value="{{ old('end_date') ?? $event->end_date }}">
                 @error('end_date')
@@ -141,6 +153,19 @@
                     </div>
                 @enderror
             </div>
+
+            <div class="col col-sm-12 col-md-6">
+                <label for="end_time">Hora de Termino</label>
+                <input type="time" class="form-control @error('end_time') is-invalid @enderror event-fields"
+                    rows="5" cols="1" name="end_time" id="end_time"
+                    value="{{ old('end_time') ?? $event->end_time }}">
+                @error('end_time')
+                    <div role="alert">
+                        <span class="text-danger ">{{ $message }}</span>
+                    </div>
+                @enderror
+            </div>
+
         </div>
     </div>
 </div>
@@ -153,7 +178,7 @@
         <div class="form-group row">
             <div class="col-sm-12 mb-3 mb-sm-0">
                 <label for="province_id">Provincia</label>
-                <select name="province_id" id="province_id" class="form-control custom-select event-fields">
+                <select name="province_id" id="province_id" class="form-control custom-select event-fields select2">
                     <option value="">Selecione...</option>
                     @foreach ($provinces as $item)
                         <option @if ($item->id == old('province_id') || $item->id == $event->province_id) {{ 'selected' }} @endif
