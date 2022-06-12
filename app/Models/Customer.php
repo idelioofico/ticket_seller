@@ -14,8 +14,8 @@ class Customer extends Model
     protected $guarded = [];
 
 
-    public static function booted()
-    {
-        static::addGlobalScope(CompanyScope::class);
-    }
+    // public static function booted()
+    // {
+    //     static::addGlobalScope(CompanyScope::class);
+    // }
 }
