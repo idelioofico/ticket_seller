@@ -50,13 +50,16 @@ class CustomerController extends Controller
         $response = array('data' => [], 'status' => $status = 404);
         $customer = Customer::where([['mobile_number', 'like', $request->mobile_number]])->first();
         // dd($customer);
+        
         if (!empty($customer)) {
             $response = array('data' => $customer, 'status' => $status = 200);
         } else {
+
             Customer::create([
                 'firstname' => 'Teste',
                 'mobile_number' => $request->mobile_number
             ]);
+
             $response = array('data' => $customer, 'status' => $status = 202);
         }
         
