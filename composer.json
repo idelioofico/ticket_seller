@@ -64,7 +64,6 @@
             "chmod -R 777 public/",
             "php artisan config:clear",
             "php artisan cache:clear"
-            // "php artisan migrate:fresh --seed"
         ]
     }
 }
