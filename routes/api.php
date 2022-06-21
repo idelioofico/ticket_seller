@@ -1,9 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\v1\CustomerControllerApi;
 use App\Http\Controllers\api\v1\EventControllerApi;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\EventController;
-use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,12 +25,12 @@ Route::prefix('v1')->group(function () {
 
 
     Route::prefix('users')->group(function () {
-        Route::get('consult', [CustomerController::class, 'consult']);
-        Route::post('/register', [CustomerController::class, 'store']);
+        Route::get('consult', [CustomerControllerApi::class, 'consult']);
+        Route::post('/register', [CustomerControllerApi::class, 'store']);
     });
 
     Route::prefix('events')->group(function () {
         Route::get('categories', [EventControllerApi::class, 'categories']);
     });
-    
+
 });
