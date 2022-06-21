@@ -12,7 +12,7 @@ class EventControllerApi extends Controller{
 
         public function categories(Request $request)
         {
-                $vent_types=EventType::get();
+                $vent_types=implode(",",EventType::get()->pluck('name'));
 
                 return response()->json(['data'=>$vent_types],200);
         }
