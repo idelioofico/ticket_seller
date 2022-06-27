@@ -19,7 +19,7 @@ class EventControllerApi extends Controller
                 $topics = EventTopic::where('name', 'like', $param)->get();
                 $events = Event::whereIn('event_type_id', $categories)->orWhereIn('topic_id', $topics)->get();
 
-                return response()->json(['data' => $events]);
+                return response()->json(['data' => $events],200);
         }
 
         public function categories()
