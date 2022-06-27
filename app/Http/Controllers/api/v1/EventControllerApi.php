@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventTopic;
 use App\Models\EventType;
+use App\Scopes\CompanyScope;
 use Illuminate\Http\Request;
 
 class EventControllerApi extends Controller
@@ -15,10 +16,13 @@ class EventControllerApi extends Controller
         public function index(Request $request)
         {
                 $param = $request->param;
+                // dd($param);
                 $categories = EventType::where('name', 'like', $param)->get();
+                // dd($categories);
                 $topics = EventTopic::where('name', 'like', $param)->get();
-                $events = Event::whereIn('event_type_id', $categories)->orWhereIn('topic_id', $topics)->get();
+                $events = Event::withoutGlobalScopes()->whereIn('event_type_id', $categories)->orWhereIn('topic_id', $topics)->get();
 
+                // dd($events);
                 return response()->json(['data' => $events],200);
         }
 
