@@ -17,10 +17,11 @@ class EventControllerApi extends Controller
         {
                 $param = $request->param;
                 // dd($param);
-                $categories = EventType::where('name', 'like', $param)->get();
+                $categories = EventType::where('name', 'like', "%".$param."%")->get();
                 // dd($categories);
-                $topics = EventTopic::where('name', 'like', $param)->get();
-                $events = Event::withoutGlobalScopes()->whereIn('event_type_id', $categories)->orWhereIn('topic_id', $topics)->get();
+                $topics = EventTopic::where('name', 'like',"%".$param."%")->get();
+                dd($categories,$topics);
+                $events = Event::withoutGlobalScopes()->whereIn('event_type_id', $categories->pluck('id'))->orWhereIn('topic_id', $topics->pluck('id'))->get();
 
                 // dd($events);
                 return response()->json(['data' => $events],200);
