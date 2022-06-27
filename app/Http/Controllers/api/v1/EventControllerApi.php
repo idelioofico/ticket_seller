@@ -20,7 +20,7 @@ class EventControllerApi extends Controller
                 $categories = EventType::where('name', 'like', "%".$param."%")->get();
                 // dd($categories);
                 $topics = EventTopic::where('name', 'like',"%".$param."%")->get();
-                dd($categories,$topics);
+                // dd($categories,$topics);
                 $events = Event::withoutGlobalScopes()->whereIn('event_type_id', $categories->pluck('id'))->orWhereIn('topic_id', $topics->pluck('id'))->get();
 
                 // dd($events);
