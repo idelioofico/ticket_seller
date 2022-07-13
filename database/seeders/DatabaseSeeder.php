@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
     $this->call([
       ProvinceSeeder::class,
       EventTopicSeeder::class,
-      EventTypeSeeder::class
+      EventTypeSeeder::class,
+      SettingSeeder::class,
     ]);
 
 

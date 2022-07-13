@@ -78,7 +78,6 @@ Route::prefix('eventos')->name('events.')->group(function () {
 
 });
 
-
 Route::prefix('users')->name('users.')->middleware("can:gerir-utilizador")->group(function () {
 
     Route::get('/', [UserController::class, 'index'])->name('index');
