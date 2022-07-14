@@ -81,7 +81,7 @@
                 <div class="col col-sm-12">
                     {{-- Header area --}}
                     <div class="card mb-4" style="width: 100%;">
-                        <img src="{{ public_path()."/".$item->image }}" class="card-img-top" alt="{{ $event->title }}"
+                        <img src="{{ public_path()."/".$event->image }}" class="card-img-top" alt="{{ $event->title }}"
                             loading="eager">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
