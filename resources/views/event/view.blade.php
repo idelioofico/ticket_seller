@@ -71,17 +71,18 @@
         <div class="container">
 
             @include('notification.alert')
+
             <div style="margin-top: 90px;"></div>
             <div class="row">
 
-                <div class="col col-sm-12 col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
-                    One
-                </div>
+                    <div class="col col-sm-12 col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
+                        One
+                    </div>
 
                 <div class="col col-sm-12">
                     {{-- Header area --}}
                     <div class="card mb-4" style="width: 100%;">
-                        <img src="{{ public_path()."/".$event->image }}" class="card-img-top" alt="{{ $event->title }}"
+                        <img src="/{{ $event->image }}" class="card-img-top" alt="{{ $event->title }}"
                             loading="eager">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
@@ -97,14 +98,14 @@
                             <h5 class="card-title">{{ $event->title }}</h5>
                         </div>
                     </div> --}}
-
-                    <div class="card mb-4" style="width: 100vw;">
+                    <div class="card mb-4" style="width: 100%;">
                         <div class="card-body">
                             {{-- <h5 class="card-title">{{ $event->title }}</h5> --}}
                             <p class="card-text">{!! $event->description !!}</p>
                             {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>
+
                     {{-- Location area --}}
                     <div class="card" style="width: 100%;">
                         <div class="card-header">

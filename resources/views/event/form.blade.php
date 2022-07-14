@@ -88,7 +88,7 @@
             @if (!empty($event->image))
                 <div class="form-group row">
                     <div class="col-sm-6 mb-6 mb-sm-0">
-                        <img src="{{ asset($event->image) }}" alt="" width="200" height="100">
+                        <img src="/{{ $event->image }}" alt="" width="200" height="100">
                     </div>
                     <div class="col-sm-6 mb-6 mb-sm-0 text-left">
                         <p class="text-warning">Carregue uma nova imagem para actualizar!</p>
