@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="col">
-                    //Header area
+                    {{-- Header area --}}
                     <div class="card" style="width: 100%;">
                         <img src="{{ asset($event->image) }}" class="card-img-top" alt="{{ $event->title }}"
                             loading="eager">
@@ -88,7 +88,7 @@
                         </div>
                     </div>
 
-                    //Description area
+                    {{-- Description area --}}
                     <div class="card" style="width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
@@ -102,7 +102,7 @@
                             {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>
-                    //Location area
+                    {{-- Location area --}}
                     <div class="card" style="width: 100%;">
                         <div class="card-header">
                             <h5>Local</h5>
