@@ -73,29 +73,32 @@
             @include('notification.alert')
             <div style="margin-top: 90px;"></div>
             <div class="row">
-                <div class="col col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
+
+                <div class="col col-sm-12 col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
                     One
                 </div>
 
-                <div class="col">
+                <div class="col col-sm-12">
                     {{-- Header area --}}
-                    <div class="card" style="width: 100%;">
-                        <img src="{{ asset($event->image) }}" class="card-img-top" alt="{{ $event->title }}"
+                    <div class="card mb-4" style="width: 100%;">
+                        <img src="{{ public_path($event->image) }}" class="card-img-top" alt="{{ $event->title }}"
                             loading="eager">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
-
+                            <p>
+                              {{date('D',strtotime($event->start_date))}}, {{date('d/m/Y', strtotime($event->start_date)) }} - {{date('D',strtotime($event->end_date))}}, {{ date('d/m/Y', strtotime($event->end_date)) }}</i>
+                            </p>
                         </div>
                     </div>
 
-                    {{-- Description area --}}
-                    <div class="card" style="width: 100%;">
+                    {{-- Description area
+                    <div class="card mb-4" style="width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="card" style="width: 100%;">
+                    <div class="card mb-4" style="width: 100vw;">
                         <div class="card-body">
                             {{-- <h5 class="card-title">{{ $event->title }}</h5> --}}
                             <p class="card-text">{!! $event->description !!}</p>
@@ -116,7 +119,7 @@
 
                 </div>
 
-                <div class="col col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
+                <div class="col  col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
                     Two
                 </div>
             </div>
