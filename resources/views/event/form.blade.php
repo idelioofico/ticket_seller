@@ -133,7 +133,7 @@
             
             <div class="col col-sm-12 col-md-6">
                 <label for="start_time">Hora de Início</label>
-                <input type="time" class="form-control @error('start_time') is-invalid @enderror event-fields" rows="5"
+                <input type="text" class="form-control @error('start_time') is-invalid @enderror event-fields" rows="5"
                     name="start_time" id="start_time" value="{{ old('start_time') ?? $event->start_time }}">
                 @error('start_date')
                     <div role="alert">
@@ -156,7 +156,7 @@
 
             <div class="col col-sm-12 col-md-6">
                 <label for="end_time">Hora de Termino</label>
-                <input type="time" class="form-control @error('end_time') is-invalid @enderror event-fields"
+                <input type="text" class="form-control @error('end_time') is-invalid @enderror event-fields"
                     rows="5" cols="1" name="end_time" id="end_time"
                     value="{{ old('end_time') ?? $event->end_time }}">
                 @error('end_time')

@@ -76,24 +76,41 @@
                 <div class="col col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
                     One
                 </div>
-                <div class="col">
 
+                <div class="col">
+                    //Header area
                     <div class="card" style="width: 100%;">
-                        <img src="{{ asset($event->image) }}" class="card-img-top" alt="{{ $event->title }}" loading="eager">
+                        <img src="{{ asset($event->image) }}" class="card-img-top" alt="{{ $event->title }}"
+                            loading="eager">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
-                            {{-- <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a> --}}
+
+                        </div>
+                    </div>
+
+                    //Description area
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $event->title }}</h5>
                         </div>
                     </div>
 
                     <div class="card" style="width: 100%;">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $event->title }}</h5>
-                            {{-- <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p> --}}
+                            {{-- <h5 class="card-title">{{ $event->title }}</h5> --}}
+                            <p class="card-text">{!! $event->description !!}</p>
                             {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
+                        </div>
+                    </div>
+                    //Location area
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header">
+                            <h5>Local</h5>
+                        </div>
+                        <div class="card-body">
+                            {{-- <h5 class="card-title">{{ $event->title }}</h5> --}}
+                            <p class="text-muted">{{ $event->address }}, {{ $event->city }}</p>
+                            <a href="#" class="btn btn-success">Ver no mapa</a>
                         </div>
                     </div>
 

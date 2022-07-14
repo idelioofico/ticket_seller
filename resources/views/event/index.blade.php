@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', env('APP_NAME') . ' | Produtos-Lista')
+@section('title', env('APP_NAME') . ' | Eventos-Lista')
 @section('css')
 
 @endsection
