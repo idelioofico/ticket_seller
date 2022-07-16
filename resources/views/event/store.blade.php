@@ -24,7 +24,7 @@
             @foreach ($events as $chave => $item)
                 <div class="col-sm-12 col-lg-4 mb-4">
                     <div class="card" style="width: 90vw;">
-                        <img src="{{ public_path()."/".$item->image }}" class="card-img-top" alt="...">
+                        <img src="/{{ $item->image }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold mb-0">{{ $item->title }}</h5>
                             <p class="card-text mb-2 ml-2">
