@@ -27,6 +27,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+
+  
+
     <!-- Styles -->
     @yield('css')
 
@@ -75,9 +78,9 @@
             <div style="margin-top: 90px;"></div>
             <div class="row">
 
-                    <div class="col col-sm-12 col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
-                        One
-                    </div>
+                <div class="col col-sm-12 col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
+                    One
+                </div>
 
                 <div class="col col-sm-12">
                     {{-- Header area --}}
@@ -87,7 +90,10 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
                             <p>
-                              {{date('D',strtotime($event->start_date))}}, {{date('d/m/Y', strtotime($event->start_date)) }} - {{date('D',strtotime($event->end_date))}}, {{ date('d/m/Y', strtotime($event->end_date)) }}</i>
+                                {{ date('D', strtotime($event->start_date)) }},
+                                {{ date('d/m/Y', strtotime($event->start_date)) }} -
+                                {{ date('D', strtotime($event->end_date)) }},
+                                {{ date('d/m/Y', strtotime($event->end_date)) }}</i>
                             </p>
                         </div>
                     </div>

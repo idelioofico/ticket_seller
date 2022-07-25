@@ -3,21 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\FileUploadHelper;
+use App\DTO\UploadCareDTO;
 use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use App\Models\EventTopic;
 use App\Models\EventType;
 use App\Models\Province;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +43,6 @@ class EventController extends Controller
             'provinces' => Province::orderBy('name', 'asc')->get(),
             'event_types' => EventType::orderBy('name', 'asc')->get(),
             'event_topics' => EventTopic::orderBy('name', 'asc')->get(),
-
         );
         return view('event.view', $data);
     }
@@ -66,7 +69,6 @@ class EventController extends Controller
             'provinces' => Province::orderBy('name', 'asc')->get(),
             'event_types' => EventType::orderBy('name', 'asc')->get(),
             'event_topics' => EventTopic::orderBy('name', 'asc')->get(),
-
         );
 
         return view('event.create', $data);
@@ -83,12 +85,20 @@ class EventController extends Controller
 
         // dd($request->image);
         $upload = new FileUploadHelper();
+        $uploadCare=App::make(UploadCareDTO::class);
 
+        $file="";
+        if($request->hasFile('image')){
+            $realpath=$upload->Upload($request->image, 'event_path'); 
+            // $realpath=$request->file('image')->getRealPath();
+            // dd($realpath);
+            $file=$uploadCare->upload(asset($realpath))."/-/preview/-/quality/smart/"; 
+        }
         $data = array(
             'slug' => Str::slug($request->title),
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $upload->Upload($request->image, 'event_path'),
+            'image' => $file,
             'event_type_id' => $request->event_type_id,
             'topic_id' => $request->topic_id,
             'start_date' => date('Y-m-d', strtotime($request->start_date)),
@@ -160,12 +170,18 @@ class EventController extends Controller
     {
         // dd($event);
         $upload = new FileUploadHelper();
+        $file="";
+        if($request->hasFile('image')){
+            $file=$upload->Upload($request->image, 'event_path'); 
+        }else{
+            $file=$event->image;
+        }
 
         $data = array(
             'slug' => Str::slug($request->title),
             'title' => $request->title,
             'description' => $request->description,
-            'image' =>$request->hasFile('image')?$upload->Upload($request->image, 'event_path'):$event->image,
+            'image' =>$file,
             'event_type_id' => $request->event_type_id,
             'topic_id' => $request->topic_id,
             'start_date' => date('Y-m-d', strtotime($request->start_date)),

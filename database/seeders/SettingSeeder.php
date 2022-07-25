@@ -66,5 +66,42 @@ class SettingSeeder extends Seeder
                 'value'=>'bit.ly',
             ]
         );
+
+
+
+        //Upload care
+
+        Setting::create(
+            [
+                'type'=>'uploadcare_endpoint_url',
+                'description'=>'uploadcare',
+                'value'=>'https://upload.uploadcare.com/base/',
+            ]
+        );
+
+
+        Setting::create(
+            [
+                'type'=>'uploadcare_endpoint_cdn',
+                'description'=>'uploadcare',
+                'value'=>'https://ucarecdn.com/',
+            ]
+        );
+
+        Setting::create(
+            [
+                'type'=>'uploadcare_endpoint_key',
+                'description'=>'uploadcare',
+                'value'=>'67dfb28c16e014018a19',
+            ]
+        );
+
+        // Setting::create(
+        //     [
+        //         'type'=>'uploadcare_endpoint_domain',
+        //         'description'=>'uploadcare',
+        //         'value'=>'bit.ly',
+        //     ]
+        // );
     }
 }

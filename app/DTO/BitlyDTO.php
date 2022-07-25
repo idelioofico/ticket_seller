@@ -21,21 +21,28 @@ class BitlyDTO extends BaseDTO
         } catch (\Throwable $th) {
             throw new Exception("Bitly: Ocorreu um erro ao tentar buscar a chave \n {$th}");
         }
-
     }
 
-    /**
-     * Given a long URL, generate a short URL.
-     * 
-     * @param longUrl the long URL you want to shorten
-     */
-    public function generateShortUrl($longUrl)
+   
+   /**
+    * It takes a long URL and returns a short URL
+    * 
+    * @param longUrl The long URL to be shortened.
+    * @param title The title of the link.
+    * 
+    * @return The response is an object with a link property.
+    */
+    public function generateShortUrl($longUrl, $title = '')
     {
 
         $body = [
             "domain"   => $this->serviceDomain,
             "long_url" => $longUrl,
         ];
+
+        if (isset($title) && !empty($title)) {
+            $body["title"] = $title;
+        }
 
         $headers = [
             "Content-Type: application/json",
@@ -44,6 +51,6 @@ class BitlyDTO extends BaseDTO
 
         $reposnse = $this->dispatch($this->serviceUrl, 'POST', $headers, $body);
 
-        return $reposnse->link?:null;
+        return $reposnse->link ?: null;
     }
 }
