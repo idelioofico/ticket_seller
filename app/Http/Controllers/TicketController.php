@@ -60,7 +60,6 @@ class TicketController extends Controller
             'start_time' => date('H:i', strtotime($request->start_time)),
             'end_time' => date('H:i', strtotime($request->end_time)),
             'company_id'=>auth()->user()->company_id
-
         );
         // dd($data);
         if ($event->tickets()->create($data)) {

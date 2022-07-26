@@ -9,7 +9,6 @@ class RequestValidatorHelper
 {
 
 
-
     public static function ValidateFields(array $rules, Request $request)
     {
         $response = [];

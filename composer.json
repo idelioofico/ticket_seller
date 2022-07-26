@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.4",
         "realrashid/sweet-alert": "^3.1",
-        "simplesoftwareio/simple-qrcode": "~4"
+        "simplesoftwareio/simple-qrcode": "~4",
+        "uploadcare/uploadcare-php": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
@@ -62,7 +63,8 @@
         ],
         "post-install-cmd": [
             "php artisan clear-compiled",
-            "chmod -R 777 public/"
+            "chmod -R 777 public/",
+            "@php artisan migrate:fresh --seed"
         ]
     }
 }
