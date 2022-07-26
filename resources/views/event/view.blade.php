@@ -101,7 +101,7 @@
                     <div class="card mb-4" style="width: 100%;">
                         <div class="card-body">
                             {{-- <h5 class="card-title">{{ $event->title }}</h5> --}}
-                            <p class="card-text">{!! $event->description !!}</p>
+                            <p style="width: 80%;" class="card-text">{!! $event->description !!}</p>
                             {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>
