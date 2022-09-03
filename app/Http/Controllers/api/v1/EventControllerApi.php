@@ -26,15 +26,32 @@ class EventControllerApi extends Controller
                 try {
 
                         $param = $request->param;
-                        $query = Event::withoutGlobalScopes();
+                        $query = Event::withoutGlobaalScopes();
 
                         if (!empty($param)) {
 
                                 $category = EventType::where('name', 'like', "%" . $param . "%")->first();
+                                Logs::create(
+                                        [
+                                                'action'=>'search_category',
+                                                'request' => json_encode($request->all()),
+                                                'response' => json_encode($category),
+                                                'ip' => $request->ip(),
+                                                'user' => ''
+                                        ]
+                                );
                                 $topic = EventTopic::where('name', 'like', "%" . $param . "%")->first();
+                                Logs::create(
+                                        [
+                                                'action'=>'search_topic',
+                                                'request' => json_encode($request->all()),
+                                                'response' => json_encode($topic),
+                                                'ip' => $request->ip(),
+                                                'user' => ''
+                                        ]
+                                );
 
                                 if (!empty($category) && empty($topic)) {
-
                                         $events = $query->where('event_type_id', $category->id)->get();
                                 } else if (empty($category) && !empty($topic)) {
 
