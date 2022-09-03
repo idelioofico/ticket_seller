@@ -30,7 +30,7 @@ class EventControllerApi extends Controller
 
                         if (!empty($param)) {
 
-                                $category = EventType::where('name', 'like', $param)->first();
+                                $category = EventType::where('name', 'like', "%$param%")->first();
 
                                 Logs::create(
                                         [
@@ -41,7 +41,7 @@ class EventControllerApi extends Controller
                                                 'user' => ''
                                         ]
                                 );
-                                $topic = EventTopic::where('name', 'like', $param )->first();
+                                $topic = EventTopic::where('name', 'like', "%$param%")->first();
                                 Logs::create(
                                         [
                                                 'action'=>'search_topic',
