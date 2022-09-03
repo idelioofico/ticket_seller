@@ -34,7 +34,7 @@ class EventControllerApi extends Controller
                                 Logs::create(
                                         [
                                                 'action'=>'search_category',
-                                                'request' => json_encode($request->all()),
+                                                'request' => json_encode($param),
                                                 'response' => json_encode($category),
                                                 'ip' => $request->ip(),
                                                 'user' => ''
@@ -44,7 +44,7 @@ class EventControllerApi extends Controller
                                 Logs::create(
                                         [
                                                 'action'=>'search_topic',
-                                                'request' => json_encode($request->all()),
+                                                'request' => json_encode($param),
                                                 'response' => json_encode($topic),
                                                 'ip' => $request->ip(),
                                                 'user' => ''
