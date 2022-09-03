@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventTopic;
 use App\Models\EventType;
+use App\Models\Logs;
 use App\Scopes\CompanyScope;
 use Exception;
 use Illuminate\Http\Request;
@@ -34,26 +35,26 @@ class EventControllerApi extends Controller
 
                                 if (!empty($category) && empty($topic)) {
 
-                                        $events= $query->where('event_type_id', $category->id)->get();
+                                        $events = $query->where('event_type_id', $category->id)->get();
                                 } else if (empty($category) && !empty($topic)) {
 
-                                        $events= $query->where('topic_id', $topic->id)->get();
+                                        $events = $query->where('topic_id', $topic->id)->get();
                                 } else if (!empty($category) && !empty($topic)) {
 
-                                        $events= $query->where('event_type_id', $category->id)->orWhere('topic_id', $topic->id)->get();
+                                        $events = $query->where('event_type_id', $category->id)->orWhere('topic_id', $topic->id)->get();
                                 }
-                        }else{
-                                $events=Event::withoutGlobalScopes()->get();
+                        } else {
+                                $events = Event::withoutGlobalScopes()->get();
                         }
 
-                        if (!empty($events) && count($events)>0) {
+                        if (!empty($events) && count($events) > 0) {
+
                                 $response = array(
                                         'message' => 'Eventos listados com successo!',
                                         'status' => $status = 200,
                                         'data' => $events,
                                 );
                         }
-
                 } catch (Exception $ex) {
 
                         $response = array(
@@ -64,10 +65,19 @@ class EventControllerApi extends Controller
                         );
                 }
 
+                Logs::create(
+                        [
+                                'action'=>'search_event',
+                                'request' => json_encode($request->all()),
+                                'response' => json_encode($response),
+                                'ip' => $request->ip(),
+                                'user' => ''
+                        ]
+                );
                 return response()->json($response, $status);
         }
 
-        public function categories()
+        public function categories(Request $request)
         {
                 $types = EventType::get()->pluck('name')->toArray();
 
@@ -77,6 +87,16 @@ class EventControllerApi extends Controller
 
                 $vent_types = strtolower(implode(",", $categories));
 
+
+                Logs::create(
+                        [
+                                'action'=>'get_categories',
+                                'request' => json_encode($request->all()),
+                                'response' => json_encode($vent_types),
+                                'ip' => $request->ip(),
+                                'user' => ''
+                        ]
+                );
                 return response()->json(['data' => $vent_types], 200);
         }
 }
