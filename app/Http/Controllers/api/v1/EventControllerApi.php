@@ -42,6 +42,8 @@ class EventControllerApi extends Controller
 
                                         $events= $query->where('event_type_id', $category->id)->orWhere('topic_id', $topic->id)->get();
                                 }
+                        }else{
+                                $events=Event::withoutGlobalScopes()->get();
                         }
 
                         if (!empty($events) && count($events)>0) {
@@ -51,6 +53,7 @@ class EventControllerApi extends Controller
                                         'data' => $events,
                                 );
                         }
+
                 } catch (Exception $ex) {
 
                         $response = array(
