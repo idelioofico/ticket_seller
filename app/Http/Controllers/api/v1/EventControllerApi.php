@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\EventTopic;
 use App\Models\EventType;
 use App\Scopes\CompanyScope;
+use Exception;
 use Illuminate\Http\Request;
 
 class EventControllerApi extends Controller
@@ -15,27 +16,63 @@ class EventControllerApi extends Controller
 
         public function index(Request $request)
         {
-                $param = $request->param;
-                // dd($param);
-                $categories = EventType::where('name', 'like', "%".$param."%")->get();
-                // dd($categories);
-                $topics = EventTopic::where('name', 'like',"%".$param."%")->get();
-                // dd($categories,$topics);
-                $events = Event::withoutGlobalScopes()->whereIn('event_type_id', $categories->pluck('id'))->orWhereIn('topic_id', $topics->pluck('id'))->get();
+                $response = array(
+                        'message' => 'Opsii, não foram encontrados eventos para a categoria desejada',
+                        'status' => $status = 200,
+                        'data' => [],
+                );
 
-                // dd($events);
-                return response()->json(['data' => $events],200);
+                try {
+
+                        $param = $request->param;
+                        $query = Event::withoutGlobalScopes();
+
+                        if (!empty($param)) {
+
+                                $category = EventType::where('name', 'like', "%" . $param . "%")->first();
+                                $topic = EventTopic::where('name', 'like', "%" . $param . "%")->first();
+
+                                if (!empty($category) && empty($topic)) {
+
+                                        $events= $query->where('event_type_id', $category->id)->get();
+                                } else if (empty($category) && !empty($topic)) {
+
+                                        $events= $query->where('topic_id', $topic->id)->get();
+                                } else if (!empty($category) && !empty($topic)) {
+
+                                        $events= $query->where('event_type_id', $category->id)->orWhere('topic_id', $topic->id)->get();
+                                }
+                        }
+
+                        if (!empty($events) && count($events)>0) {
+                                $response = array(
+                                        'message' => 'Eventos listados com successo!',
+                                        'status' => $status = 200,
+                                        'data' => $events,
+                                );
+                        }
+                } catch (Exception $ex) {
+
+                        $response = array(
+                                'message' => 'Ocorreu um erro ao tentar buscar eventos.',
+                                'status' => $status = 501,
+                                'data' => null,
+                                'exception' => $ex->getMessage()
+                        );
+                }
+
+                return response()->json($response, $status);
         }
 
         public function categories()
         {
-                $types=EventType::get()->pluck('name')->toArray();
-                
-                $topics=EventTopic::get()->pluck('name')->toArray();
+                $types = EventType::get()->pluck('name')->toArray();
 
-                $categories=array_merge($types,$topics);
+                $topics = EventTopic::get()->pluck('name')->toArray();
 
-                $vent_types = strtolower(implode(",",$categories));
+                $categories = array_merge($types, $topics);
+
+                $vent_types = strtolower(implode(",", $categories));
 
                 return response()->json(['data' => $vent_types], 200);
         }
