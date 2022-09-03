@@ -26,7 +26,7 @@ class EventControllerApi extends Controller
                 try {
 
                         $param = $request->param;
-                        $query = Event::withoutGlobaalScopes();
+                        $query = Event::withoutGlobalScopes();
 
                         if (!empty($param)) {
 
