@@ -85,14 +85,14 @@ class EventController extends Controller
 
         // dd($request->image);
         $upload = new FileUploadHelper();
-        $uploadCare=App::make(UploadCareDTO::class);
+        $uploadCare = App::make(UploadCareDTO::class);
 
-        $file="";
-        if($request->hasFile('image')){
-            $realpath=$upload->Upload($request->image, 'event_path'); 
+        $file = "";
+        if ($request->hasFile('image')) {
+            $realpath = $upload->Upload($request->image, 'event_path');
             // $realpath=$request->file('image')->getRealPath();
             // dd($realpath);
-            $file=$uploadCare->upload(asset($realpath))."/-/preview/-/quality/smart/"; 
+            $file = $uploadCare->upload(asset($realpath)) . "/-/preview/-/quality/smart/";
         }
         $data = array(
             'slug' => Str::slug($request->title),
@@ -134,7 +134,7 @@ class EventController extends Controller
             'provinces' => Province::orderBy('name', 'asc')->get(),
             'event_types' => EventType::orderBy('name', 'asc')->get(),
             'event_topics' => EventTopic::orderBy('name', 'asc')->get(),
-            'tickets'=>$event->tickets()->with('orders')->get(),
+            'tickets' => $event->tickets()->with('orders')->get(),
         );
 
         // dd($data);
@@ -168,20 +168,25 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        // dd($event);
+
         $upload = new FileUploadHelper();
-        $file="";
-        if($request->hasFile('image')){
-            $file=$upload->Upload($request->image, 'event_path'); 
-        }else{
-            $file=$event->image;
+        $uploadCare = App::make(UploadCareDTO::class);
+        $file = "";
+
+        if ($request->hasFile('image')) {
+            $realpath = $upload->Upload($request->image, 'event_path');
+            // $realpath=$request->file('image')->getRealPath();
+            // dd($realpath);
+            $file = $uploadCare->upload(asset($realpath)) . "/-/preview/-/quality/smart/";
+        } else {
+            $file = $event->image;
         }
 
         $data = array(
             'slug' => Str::slug($request->title),
             'title' => $request->title,
             'description' => $request->description,
-            'image' =>$file,
+            'image' => $file,
             'event_type_id' => $request->event_type_id,
             'topic_id' => $request->topic_id,
             'start_date' => date('Y-m-d', strtotime($request->start_date)),

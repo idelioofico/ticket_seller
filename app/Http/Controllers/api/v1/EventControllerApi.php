@@ -30,7 +30,9 @@ class EventControllerApi extends Controller
         public function categories()
         {
                 $types=EventType::get()->pluck('name')->toArray();
+                
                 $topics=EventTopic::get()->pluck('name')->toArray();
+
                 $categories=array_merge($types,$topics);
 
                 $vent_types = strtolower(implode(",",$categories));

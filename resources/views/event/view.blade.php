@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title> @yield('title', 'Tikonta') </title>
+    <title> @yield('title', env('APP_NAME') . ' | ' . "$event->title") </title>
 
-    <link rel="icon" href="{{ asset('/book-solid.svg') }}" type="image/svg">
+    {{-- <link rel="icon" href="{{ asset('/book-solid.svg') }}" type="image/svg"> --}}
 
     <!-- Fonts -->
 
@@ -28,7 +28,22 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 
-  
+    <style>
+        icon-shape {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .icon-sm {
+            width: 2rem;
+            height: 2rem;
+
+        }
+    </style>
+
 
     <!-- Styles -->
     @yield('css')
@@ -85,7 +100,7 @@
                 <div class="col col-sm-12">
                     {{-- Header area --}}
                     <div class="card mb-4" style="width: 100%;">
-                        <img src="{{ $event->image }}" class="card-img-top" alt="{{ $event->title }}"
+                        <img src="{{ asset($event->image) }}" class="card-img-top" alt="{{ $event->title }}"
                             loading="eager">
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
@@ -113,7 +128,7 @@
                     </div>
 
                     {{-- Location area --}}
-                    <div class="card" style="width: 100%;">
+                    <div class="card mb-4" style="width: 100%;">
                         <div class="card-header">
                             <h5>Local</h5>
                         </div>
@@ -124,6 +139,70 @@
                         </div>
                     </div>
 
+                    @php
+                        $tickets = $event->tickets;
+                        
+                    @endphp
+
+                    {{-- Location area --}}
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header">
+                            <h5>Bilhetes
+                                <span class="badge">0000</span>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+
+                            @if (!empty($tickets) || count($tickets) == 0)
+                                {{-- <div class="list-group"> --}}
+                                <div class="row">
+                                    @foreach ($tickets as $ticket)
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <p class="text-dark">{{ $ticket->title }}</p>
+                                                </div>
+
+                                                <div class="input-group w-auto justify-content-end align-items-center">
+                                                    <input type="button" value="-"
+                                                        class="button-minus border rounded-circle  icon-shape icon-sm mx-1 "
+                                                        data-field="quantity">
+
+                                                    <input type="number" step="1" max="10" value="0"
+                                                        name="quantity"
+                                                        class="quantity-field border-0 text-center w-25">
+
+                                                    <input type="button" value="+"
+                                                        class="button-plus border rounded-circle icon-shape icon-sm "
+                                                        data-field="quantity">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- <button type="button"
+                                            class="list-group-item list-group-item-action">{{ $ticket->title }}</button> --}}
+                                    @endforeach
+                                </div>
+                                {{-- </div> --}}
+                            @else
+                                <p><strong>Nenhum bilhete disponível</strong></p>
+                            @endif
+
+                        </div>
+                    </div>
+
+                    {{-- Location area --}}
+                    <div class="card mt-4" style="width: 100%;">
+                        <div class="card-header">
+                            {{-- <h5>Local</h5> --}}
+                        </div>
+                        <div class="card-body">
+                            {{-- <h5 class="card-title">{{ $event->title }}</h5> --}}
+                            {{-- <p class="text-muted">{{ $event->address }}, {{ $event->city }}</p>
+                            <a href="#" class="btn btn-success">Ver no mapa</a> --}}
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="col  col-md-2 col-lg-2 col-xl-2 d-none d-md-none">
@@ -131,9 +210,31 @@
                 </div>
             </div>
         </div>
-
     </div>
 
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     @include('sweetalert::alert')
 
@@ -154,57 +255,53 @@
             <script src="{{ asset('/js/dropzone.js') }}"></script>
             <script src="https://js.upload.io/upload-js/v1"></script>
             <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script> --}}
-
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
 
-    @yield('scripts')
-
-
     <script>
+
         $(document).ready(function() {
 
             $('.preloader').fadeOut('hide');
-            $('.data-table').dataTable({
-                language: {
-                    "lengthMenu": "Mostrar _MENU_ registos",
-                    "zeroRecords": "Nenhum resultado encontrado!",
-                    "info": "Mostrando registos de _START_ a _END_ de um total de _TOTAL_ registos",
-                    "infoEmpty": "Mostrando registos de 0 a 0 de um total de 0 registos",
-                    "infoFiltered": "(filtrado de um total de _MAX_ registos)",
-                    "sSearch": "Pesquisar:",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sLast": "último",
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior"
-                    },
-                    "sProcessing": "Processando...",
-                },
-                buttons: [
-                    'copy', 'excel', 'pdf'
-                ]
+          
+            $('.input-group').on('click', '.button-plus', function(e) {
+                incrementValue(e);
             });
-            // $('.select2').select2();
-            EditorJS({
-                /**
-                 * Id of Element that should contain Editor instance
-                 */
-                holder: 'description'
+
+
+            $('.input-group').on('click', '.button-minus', function(e) {
+                decrementValue(e);
             });
+
         });
 
-        // $(function() {
-        //     // $('.select2').each(function() {
-        //     //     $(this).select2({
-        //     //         theme: 'bootstrap4'
-        //     //         , width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style'
-        //     //         , placeholder: $(this).data('placeholder')
-        //     //         , allowClear: Boolean($(this).data('allow-clear'))
-        //     //     , });
-        //     // });
-        // });
+        function incrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+            if (!isNaN(currentVal)) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
+        }
+
+            function decrementValue(e) {
+                e.preventDefault();
+                var fieldName = $(e.target).data('field');
+                var parent = $(e.target).closest('div');
+                var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+                if (!isNaN(currentVal) && currentVal > 0) {
+                    parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+                } else {
+                    parent.find('input[name=' + fieldName + ']').val(0);
+                }
+            }
 
         $(document).load(function() {
             $('.preloader').fadeOut('slow');

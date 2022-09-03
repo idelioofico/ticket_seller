@@ -22,9 +22,11 @@
         <div class="row">
 
             @foreach ($events as $chave => $item)
-                <div class="col-sm-12 col-lg-4 mb-4">
-                    <div class="card" style="width: 90vw;">
-                        <img src="/{{ $item->image }}" class="card-img-top" alt="...">
+
+                <div class="col-sm-12 col-lg-4 col-md-4 my-3 mb-4">
+
+                    <div class="card">
+                        <img src="{{ $item->image }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold mb-0">{{ $item->title }}</h5>
                             <p class="card-text mb-2 ml-2">
@@ -99,7 +101,7 @@
                         <div class="text-center mt-4">
                             <img class="img-fluid p-4" src="{{ asset('/assets/img/freepik/statistics-pana.svg') }}"
                                 alt />
-                            <p class="lead">Nenhum evento disponével do momento</p>
+                            <p class="lead">Nenhum evento disponível do momento</p>
                             {{-- <a class="text-arrow-icon" href="{{route('manual')}}">
                             <i class="ml-0 mr-1" data-feather="arrow-left"></i>
                             Manual
