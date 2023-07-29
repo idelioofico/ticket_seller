@@ -24,6 +24,7 @@ class CustomerControllerApi extends Controller
         if (!empty($customer)) {
 
             $response = array('data' => $customer, 'status' => $status = 200);
+            
         } else {
 
            $new_customer= Customer::create([

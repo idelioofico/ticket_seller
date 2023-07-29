@@ -41,7 +41,9 @@ class EventControllerApi extends Controller
                                                 'user' => ''
                                         ]
                                 );
+
                                 $topic = EventTopic::where('name', 'like', "%$param%")->first();
+                                
                                 Logs::create(
                                         [
                                                 'action'=>'search_topic',
